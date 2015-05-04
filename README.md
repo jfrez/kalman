@@ -1,6 +1,6 @@
 # Kalman
 
-Kalman filter for Javascript.
+Kalman filter for Javascript. Node version.
 
 ## Dependencies
 The module requires the  sylvester.js for node (https://github.com/NaturalNode/node-sylvester) compatible matrix and vector manipulation module.
