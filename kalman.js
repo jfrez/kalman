@@ -19,12 +19,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
-
-var Kalman = {
+var S = require('sylvester');
+module.exports = {
+ Kalman : {
   version: '0.0.1'
-};
+},
 
-KalmanModel = (function(){
+KalmanModel : (function(){
 
   function KalmanModel(x_0,P_0,F_k,Q_k){
     this.x_k  = x_0;
@@ -32,9 +33,9 @@ KalmanModel = (function(){
     this.F_k  = F_k;
     this.Q_k  = Q_k;
   }
-  
+
   KalmanModel.prototype.update =  function(o){
-    this.I = Matrix.I(this.P_k.rows());
+    this.I = S.Matrix.I(this.P_k.rows());
     //init
     this.x_k_ = this.x_k;
     this.P_k_ = this.P_k;
@@ -50,17 +51,18 @@ KalmanModel = (function(){
     this.x_k = this.x_k_k_.add(this.K_k.x(this.y_k));
     this.P_k = this.I.subtract(this.K_k.x(o.H_k)).x(this.P_k_k_);
   }
-  
+
   return KalmanModel;
-})();
+})(),
 
-KalmanObservation = (function(){
+KalmanObservation : (function(){
 
-  function KalmanObservation(z_k,H_k,Q_k){
+  function KalmanObservation(z_k,H_k,R_k){
     this.z_k = z_k;//observation
     this.H_k = H_k;//observation model
     this.R_k = R_k;//observation noise covariance
   }
-  
+
   return KalmanObservation;
-})();
+})()
+}
