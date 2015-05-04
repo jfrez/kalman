@@ -10,7 +10,7 @@ npm install sylvester
 ## Usage
 Using the Kalman Filter module is very simple:
 
-...
+```
 var K=require('./kalman.js');
 
 var x_0 = $V([-10]);
